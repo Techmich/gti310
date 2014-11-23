@@ -73,7 +73,7 @@ public class Convertisseur {
 
 	}
 
-	public double[][] convertirDCT(float[][][] imageConvertie){
+	public double[][] convertirDCT(float[][] imageConvertie){
 
 	double[][] image = new double[8][8];
 
@@ -87,10 +87,7 @@ public class Convertisseur {
 
 					for(int j = 0; j < 8; j++){
 
-						sum+= Math.cos(((2*i+1)/(16))*u*Math.PI)*Math.cos(((2*j+1)/(16))*v*Math.PI)/**imageDCT[i][j]*/;
-
-						//imageDCT[i][j] = imageY[i][j];
-						//System.out.println(imageY[i][j]);
+						sum+= Math.cos(((2*i+1)/(16))*u*Math.PI)*Math.cos(((2*j+1)/(16))*v*Math.PI)*imageConvertie[i][j];
 
 					}
 
