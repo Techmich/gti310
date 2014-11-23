@@ -4,7 +4,7 @@ public class Convertisseur {
 
 	float[][][] imageConvertie;
 	int[] infoImage;
-	int[][] imageDCT;
+	double[][] imageDCT;
 
 	public Convertisseur(int[][][] image){
 
@@ -73,43 +73,38 @@ public class Convertisseur {
 
 	}
 
-	public int[][] convertirDCT(float[][][] imageConvertie){
+	public double[][] convertirDCT(float[][][] imageConvertie){
 
-		int[][] imageY = new int[infoImage[0]][infoImage[1]];
-		int[][] imageDCT = new int[infoImage[0]][infoImage[1]];
+	double[][] image = new double[8][8];
 
-		for(int h = 0; h < imageY.length; h++){
+		for(int u = 0; u < 8; u++){
 
-			for(int l = 0; l < imageY[0].length; l++){
-
-				imageY[h][l] = (int) imageConvertie[0][h][l];
-				//System.out.println(imageY[h][l]);
-
-			}
-
-		}
-
-		
-
-		for(int a = 0; a < 8; a++){
-
-			for(int b = 0; b < 8; b++){
+			for(int v = 0; v < 8; v++){
 				
 				double sum = 0.0;
 
-				for(int m = 0; m < 8; m++){
+				for(int i = 0; i < 8; i++){
 
-					for(int n = 0; n < 8; n++){
+					for(int j = 0; j < 8; j++){
 
-						sum+=Math.cos(((2*m+1)/(2.0*8))*a*Math.PI)*Math.cos(((2*n+1)/(2.0*8))*b*Math.PI)*imageDCT[m][n];
+						sum+= Math.cos(((2*i+1)/(16))*u*Math.PI)*Math.cos(((2*j+1)/(16))*v*Math.PI)/**imageDCT[i][j]*/;
 
-						imageDCT[m][n] = imageY[m][n];
-						System.out.println(imageY[m][n]);
+						//imageDCT[i][j] = imageY[i][j];
+						//System.out.println(imageY[i][j]);
 
 					}
 
 				}
-
+				if (u == 0 && v == 0)
+				sum*=(((1/Math.sqrt(2.0))*(1/Math.sqrt(2.0)))/4.0);
+				if (u > 0 && v == 0)
+					sum*=((1*(1/Math.sqrt(2.0)))/4.0);
+				if (u == 0 && v > 0)
+					sum*=(((1/Math.sqrt(2.0))*1)/4.0);
+				if (u > 0 && v > 0)
+					sum*=((1*1)/4.0);
+				image[u][v] = sum ;
+				
 			}
 		}
 
@@ -117,7 +112,7 @@ public class Convertisseur {
 
 
 
-				return imageDCT;
+				return image;
 			}
 
 		}
